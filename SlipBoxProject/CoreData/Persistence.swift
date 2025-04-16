@@ -36,6 +36,19 @@ class PersistenceController: ObservableObject {
 
         checkSyncStatus()
     }
+
+    func save() {
+        let context = container.viewContext
+        guard context.hasChanges else { return }
+        
+        do {
+            try context.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+
     // Check the users cloudKit status. Is it too full, something didn't sync right
     func checkSyncStatus() {
         NotificationCenter.default.publisher(for: NSPersistentCloudKitContainer.eventChangedNotification)

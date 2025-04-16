@@ -34,6 +34,8 @@ struct NoteDetailView: View {
             }
             .foregroundStyle(.pink)
         }
+        .padding()
+        .onDisappear { PersistenceController.shared.save() }
     }
 }
 
