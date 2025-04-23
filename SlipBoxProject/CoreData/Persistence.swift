@@ -183,4 +183,8 @@ class PersistenceController: ObservableObject {
         }
         return result
     }()
+
+    static func createEmpty() -> PersistenceController {
+        return PersistenceController(inMemory: true)
+    }
 }
