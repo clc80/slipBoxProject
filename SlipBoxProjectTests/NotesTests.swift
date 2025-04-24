@@ -64,4 +64,14 @@ final class NotesTests: XCTestCase {
         XCTAssertNotNil(fetchedNotes)
         XCTAssertTrue(fetchedNotes!.count == 0, "Predicate of none should no fetch any objects")
     }
+
+    func test_DeleteNote() {
+        let note = Note(title: "default note", context: context)
+        Note.delete(note: note)
+
+        let fetchedNotes = try? context.fetch(Note.fetch(.all))
+
+        XCTAssertTrue(fetchedNotes?.count == 0, "deleted note should not be in database")
+        XCTAssertFalse(fetchedNotes!.contains(note))
+    }
 }
