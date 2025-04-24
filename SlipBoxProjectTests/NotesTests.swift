@@ -39,4 +39,29 @@ final class NotesTests: XCTestCase {
         XCTAssertNotNil(note.creationDate, "Notes should have creationDate property")
         XCTAssertNotNil(noteConvenient.creationDate)
     }
+
+    func test_Notes_EditingTitle() {
+        let note = Note(title: "old", context: context)
+        note.title = "new"
+
+        XCTAssertTrue(note.title == "new")
+    }
+
+    func test_FetchAllPredicate() {
+        _ = Note(title: "default note", context: context)
+        let fetch = Note.fetch(NSPredicate.all)
+        let fetchedNotes = try? context.fetch(fetch)
+
+        XCTAssertNotNil(fetchedNotes)
+        XCTAssertTrue(fetchedNotes!.count > 0, "Predicate of all should fetch at least one object")
+    }
+
+    func test_FetchNonePredicate() {
+        _ = Note(title: "default note", context: context)
+        let fetch = Note.fetch(NSPredicate.none)
+        let fetchedNotes = try? context.fetch(fetch)
+
+        XCTAssertNotNil(fetchedNotes)
+        XCTAssertTrue(fetchedNotes!.count == 0, "Predicate of none should no fetch any objects")
+    }
 }
