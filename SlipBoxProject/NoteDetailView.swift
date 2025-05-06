@@ -21,6 +21,16 @@ struct NoteDetailView: View {
 
             }
 
+            Picker(selection: $note.status) {
+                ForEach(Status.allCases) { status in
+                    Text(status.rawValue)
+                        .tag(status)
+                }
+            } label: {
+                Text("Note's status")
+            }
+            .pickerStyle(.segmented)
+
             Button("clear title") {
                 note.title = ""
             }
