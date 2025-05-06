@@ -74,4 +74,22 @@ final class NotesTests: XCTestCase {
         XCTAssertTrue(fetchedNotes?.count == 0, "deleted note should not be in database")
         XCTAssertFalse(fetchedNotes!.contains(note))
     }
+
+    func test_Asynchronous_Save() {
+        expectation(forNotification: .NSManagedObjectContextDidSave, object: context) { _ in
+            return true
+        }
+
+        _ = Note(title: "default note", context: context)
+        controller.save()
+
+        waitForExpectations(timeout: 2.0) { error in
+            XCTAssertNil(error, "Saving did not complete")
+        }
+    }
+
+    func test_IsFavorite_DefaultValue() {
+        let note = Note(title: "default note", context: context)
+        XCTAssertFalse(note.isFavorite, "note is per default no favorited.")
+    }
 }
