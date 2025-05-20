@@ -12,14 +12,11 @@ struct NoteDetailView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("Note Detail View")
+            Text("order \(Int(note.order))")
+
+            TextField("title", text: $note.title)
+                .textFieldStyle(.roundedBorder)
                 .font(.title)
-
-            HStack {
-                Text("Title: ")
-                Text(note.title)
-
-            }
 
             Picker(selection: $note.status) {
                 ForEach(Status.allCases) { status in
@@ -31,18 +28,11 @@ struct NoteDetailView: View {
             }
             .pickerStyle(.segmented)
 
-            Button("clear title") {
-                note.title = ""
-            }
-
-            TextField("title", text: $note.title)
-                .textFieldStyle(.roundedBorder)
-
-            Button("Delete Note") {
-                let context = note.managedObjectContext
-                context?.delete(note)
-            }
-            .foregroundStyle(.pink)
+            #if os(iOS)
+            TextViewiOSWrapper(note: note)
+            #else
+            TextViewMacosWrapper(note: note )
+            #endif
         }
         .padding()
         .onDisappear { PersistenceController.shared.save() }

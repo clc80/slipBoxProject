@@ -35,6 +35,10 @@
 			membershipExceptions = (
 				Info.plist,
 			);
+			platformFiltersByRelativePath = {
+				View/note/TextViewMacosWrapper.swift = (macos, xros, );
+				View/note/TextViewiOSWrapper.swift = (ios, );
+			};
 			target = FB3361A82DA9F0E000554EC2 /* SlipBoxProject */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */

@@ -33,6 +33,15 @@ extension Note {
         }
     }
 
+    var formattedBodyText: NSAttributedString {
+        get {
+            formattedBodyText_?.toAttributedString() ?? NSAttributedString(string: "")
+        }
+        set {
+            formattedBodyText_ = newValue.toData()
+        }
+    }
+
     convenience init(title: String, context: NSManagedObjectContext) {
         self.init(context: context)
 
