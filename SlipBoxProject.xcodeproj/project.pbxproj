@@ -36,6 +36,7 @@
 				Info.plist,
 			);
 			platformFiltersByRelativePath = {
+				CrossPlatform/macOS.swift = (macos, );
 				View/note/TextViewMacosWrapper.swift = (macos, xros, );
 				View/note/TextViewiOSWrapper.swift = (ios, );
 			};

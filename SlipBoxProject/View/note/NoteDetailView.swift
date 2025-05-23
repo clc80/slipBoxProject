@@ -33,6 +33,9 @@ struct NoteDetailView: View {
             #else
             TextViewMacosWrapper(note: note )
             #endif
+
+            OptionalImageView(data: note.img)
+            NotePhoteSelectorButton(note: note)
         }
         .padding()
         .onDisappear { PersistenceController.shared.save() }
